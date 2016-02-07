@@ -34,8 +34,8 @@ namespace MIG
 
     public class MigContext
     {
-        public ContextSource Source { get; }
-        public object Data { get; }
+        public ContextSource Source { get; protected set; }
+        public object Data { get; protected set; }
 
         public MigContext(ContextSource source, object data)
         {

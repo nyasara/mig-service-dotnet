@@ -116,7 +116,11 @@ namespace MIG.Interfaces.HomeAutomation
             Version_GetAll,
 
             DoorLock_Set,
-            DoorLock_Get
+            DoorLock_Get,
+
+            SwitchColor_Set,
+            SwitchColor_Get,
+            SwitchColor_CapabilityReport
         }
 
         // Z-Wave specific events
@@ -687,6 +691,30 @@ namespace MIG.Interfaces.HomeAutomation
                     {
                         DoorLock.Value mode = (DoorLock.Value)Enum.Parse(typeof(DoorLock.Value), request.GetOption(0));
                         DoorLock.Set(node, mode);
+                    }
+                    break;
+
+                case Commands.SwitchColor_CapabilityReport:
+                    SwitchColor.GetCapabilityReport(node);
+                    break;
+                case Commands.SwitchColor_Get:
+                    int index;
+                    if(int.TryParse(request.GetOption(0), out index)) 
+                        SwitchColor.Get(node, index);
+                    break;
+                case Commands.SwitchColor_Set:
+                    {
+                        List<SwitchColor.ColorValue> colors = new List<SwitchColor.ColorValue>();                        
+                        for (int i = 0; request.GetOption(i) != ""; i++)
+                        {
+                            var opt = request.GetOption(i);
+                            var tokens = opt.Split(':');
+                            SwitchColor.ColorValue val = new SwitchColor.ColorValue();
+                            val.ColorNumber = (ZWaveLib.Values.ZWaveSwitchColorNumber)Enum.Parse(typeof(ZWaveLib.Values.ZWaveSwitchColorNumber), tokens[0]);
+                            val.Value = byte.Parse(tokens[1]);
+                            colors.Add(val);                            
+                        }
+                        SwitchColor.Set(node, colors.ToArray());
                     }
                     break;
                 }

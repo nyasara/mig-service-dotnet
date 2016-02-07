@@ -30,11 +30,11 @@ namespace MIG
 
         public string Domain { get; set; }
         public string Address { get; set; }
-        public string Command { get; }
+        public string Command { get; protected set; }
         /// <summary>
         /// The full unparsed original request string.
         /// </summary>
-        public string OriginalRequest { get; }
+        public string OriginalRequest { get; protected set;  }
 
         public MigInterfaceCommand(string request)
         {

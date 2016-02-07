@@ -39,10 +39,10 @@ namespace MIG
             }
         }
 
-        public string Domain { get; }
-        public string Source { get; }
-        public string Description { get; }
-        public string Property { get; }
+        public string Domain { get; protected set; }
+        public string Source { get; protected set; }
+        public string Description { get; protected set; }
+        public string Property { get; protected set; }
         public object Value { get; set; }
 
         public MigEvent(string domain, string source, string description, string propertyPath, object propertyValue)

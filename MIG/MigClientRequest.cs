@@ -31,8 +31,8 @@ namespace MIG
     {
         private object responseData;
 
-        public MigContext Context  { get; }
-        public MigInterfaceCommand Command { get; }
+        public MigContext Context { get; protected set;  }
+        public MigInterfaceCommand Command { get; protected set;  }
 
         public string RequestText;
         public byte[] RequestData;
@@ -66,7 +66,7 @@ namespace MIG
 
     public class ResponseText
     {
-        public string ResponseValue { get; }
+        public string ResponseValue { get; protected set; }
 
         public ResponseText(string response)
         {
@@ -76,8 +76,8 @@ namespace MIG
 
     public class ResponseStatus
     {
-        public Status Status { get; }
-        public string Message { get; }
+        public Status Status { get; protected set; }
+        public string Message { get; protected set; }
 
         public ResponseStatus(Status status, string message = "")
         {
